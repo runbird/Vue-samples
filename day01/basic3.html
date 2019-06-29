@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <style>
+        .inner {
+            height: 100px;
+            background-color: darkcyan;
+        }
+        .outer{
+            padding: 80px;
+            background-color: rebeccapurple;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 默认是冒泡机制  先触发button事件，然后触发 click事件 -->
+        <div class="inner" @click="divHandler">
+            <!-- @click.stop停止冒泡 -->
+            <input type="button" value="点击" @click.stop="buttHandler">
+        </div>
+
+        <!-- 阻止跳转的默认行为 添加 prevent-->
+        <a href="https://www.bing.com" @click.prevent.once="clickLink">有问题去bing</a>
+        <a href="https://www.bing.com" @click="clickLink">有问题去bing</a>
+
+
+        <!-- 添加事件侦听器时使用capture进行捕捉 -->
+        <div class="inner" @click.capture="divHandler">
+            <input type="button" value="点击" @click="buttHandler">
+        </div>
+
+        <!-- 使用.self实现只有点击当前元素才会触发 -->
+        <div class="inner" @click.self="divHandler">
+            <input type="button" value="点击" @click="buttHandler">
+        </div>
+
+        <!-- self 和 stop区别 -->
+        <div class="outer" @click="divOuter">
+            <div class="inner" @click.self="divHandler">
+                <input type="button" value="点击" @click="buttHandler">
+            </div>    
+        </div>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                divHandler() {
+                    console.log("inner div事件触发！！")
+                },
+                buttHandler() {
+                    console.log("button事件触发！！")
+                },
+                clickLink() {
+                    console.log("触发了链接的点击事件")
+                },
+                divOuter(){
+                    console.log("outer div事件触发！！")
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

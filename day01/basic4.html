@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- window.vm  ->    vm.msg ="修改内容" -->
+        <h3>{{msg}}</h3>
+        <!-- v-bind 只能实现 M 到 V 的单向绑定-->
+        <input type="text" name="属性绑定" v-bind:value="msg" style="width: 100%;">
+        <!-- 使用v-model -->
+        <!-- v-model 只能再表单元素中使用 input select checkbox  textarea -->
+        <input type="text" style="width: 100%" v-model="msg">
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: 'VENI VIDI VICI  ||  multi multa; nemo omnia novit'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>
